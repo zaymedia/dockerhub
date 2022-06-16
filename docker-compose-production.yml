@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+    nginx:
+        image: nginx:alpine
+        restart: always
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - /etc/letsencrypt:/etc/letsencrypt:ro
+            - /var/www/html:/var/www/html:ro
+            - ./docker/production/nginx/conf.d:/etc/nginx/conf.d:ro
+            - ./htpasswd:/etc/nginx/auth/htpasswd:ro
+        depends_on:
+            - dockerhub
+            - cache-dockerhub
+
+    dockerhub:
+        image: registry:2
+        restart: always
+        volumes:
+            - dockerhub:/var/lib/registry
+
+    cache-dockerhub:
+        image: registry:2
+        restart: always
+        environment:
+            REGISTRY_PROXY_REMOTEURL: https://dockerhub-1.docker.io
+            REGISTRY_STORAGE_DELETE_ENABLED: 1
+        volumes:
+            - cache-dockerhub:/var/lib/registry
+
+volumes:
+    dockerhub:
+    cache-dockerhub:

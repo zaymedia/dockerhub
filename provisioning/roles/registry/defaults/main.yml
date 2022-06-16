@@ -1,0 +1,4 @@
+certbot_email: mail@zay.media
+certbot_hosts:
+    - dockerhub.zay.media
+    - cache-dockerhub.zay.media
