@@ -1,11 +1,11 @@
-# Установка Dockerhub через Ansible
+# Dockerhub
 
-**Development**
+## Запуск на локальной машине
 - Запустить команду: make init
 - Открыть сервер по пути: localhost:9000
 - Логин/пароль для входа: dockerhub/dockerhub
 
-**Production**
+## Установка через Ansible на production
 1. Создать файл hosts.yml по примеру из provisioning/hosts.yml.dist
 2. Добавить свои A записи в DNS для доменов dockerhub.zay.media и cache-dockerhub.zay.media
 3. Заменить все вхождения dockerhub.zay.media и cache-dockerhub.zay.media на свои домены из пункта 2
